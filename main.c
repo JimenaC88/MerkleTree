@@ -4,8 +4,10 @@
 #include <string.h>
 #include "merkle.h"
 #include "tests.h"
-int main (void) {
-
+int main (int argc, char *argv[]) {
+ if (argc > 1 && strcmp(argv[1], "--test") == 0){
+        return ejecutarTodasLasPruebas();
+ }
  char *data[] = {"T1", "T2", "T3", "T4"};
  MerkleTree *tree = merkle_tree_create(data , 4);
  char *root = merkle_tree_get_root(tree);
@@ -20,7 +22,6 @@ int main (void) {
  char * leaf_hash_t2 = hash_data ("T2");
  bool invalid = verify_proof ( leaf_hash_t2 , proof , root );
  printf("Prueba invalida? ( esperado No ): %s\n", invalid ? "Si" : "No");
- ejecutarTodasLasPruebas();
  free(leaf_hash);
  free(leaf_hash_t2);
  merkle_proof_free(proof);
