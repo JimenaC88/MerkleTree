@@ -21,8 +21,8 @@ int main ( void ) {
 
  free(leaf_hash);
  free(leaf_hash_t2);
- //merkle_proof_free(proof);
- //free(root);
-// merkle_tree_free(tree);
+ merkle_proof_free(proof);
+ free(root);
+ merkle_tree_free(tree);
  return 0;
 }

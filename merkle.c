@@ -221,3 +221,38 @@ bool verify_proof (const char *leaf_hash , MerkleProof *proof , const char *root
  free(actual);
  return resultado;
 }
+void liberar_nodos_recursivo(MerkleNode *nodo) {
+    if (nodo == NULL) return;
+    liberar_nodos_recursivo(nodo->left);
+    liberar_nodos_recursivo(nodo->right);
+    free(nodo->hash);
+    free(nodo);
+}
+void merkle_tree_free(MerkleTree *tree){
+    if(tree==NULL){
+        return;
+    }
+    liberar_nodos_recursivo(tree->root);
+    if(tree->levels!=NULL){
+        for(size_t i=0; i<tree->height; i++){
+            free(tree->levels[i]);
+        }
+        free(tree->levels);
+    }
+    free(tree->level_sizes);
+    free(tree);
+
+}
+
+void merkle_proof_free(MerkleProof *proof){
+     if(proof==NULL){
+        return;
+     }
+     if(proof->steps!=NULL){
+     for(size_t i=0; i<proof->length; i++){
+        free(proof->steps[i].hash);
+     }
+     free(proof->steps);
+     }
+     free(proof);
+}
