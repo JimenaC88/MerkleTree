@@ -6,20 +6,7 @@
 #include <stdbool.h>
 #include "merkle.h"
 
-void print_hex(const unsigned char *hash , size_t len){
- for(size_t i=0; i<len ; i++){
-        printf ("%02x", hash[i]);
- }
- printf ("\n");
-}
-int copiar(char *destino, const char *origen){
-    strcpy(destino, origen);
-    return 0;
-}
-char *concatenar(char *destino, char *origen){
-    strcat(destino, origen);
-    return destino;
-}
+
 MerkleNode *nuevo_nodo(char *hash_nodo){
      MerkleNode *nodonuevo=(MerkleNode*)malloc(sizeof(MerkleNode));
      nodonuevo->hash=hash_nodo;
@@ -158,7 +145,7 @@ MerkleProof *merkle_tree_get_proof (MerkleTree *tree , size_t index ){
     }
     proof->length = tree->height;
     proof->steps = (ProofStep *)malloc(tree->height * sizeof(ProofStep));
- for (int nivel = 0; nivel<tree->height; nivel++){
+ for (size_t nivel = 0; nivel<tree->height; nivel++){
     size_t tam_nivel=tree->level_sizes[nivel];
  if(idx_actual%2==0){ // somos hijo izquierdo
     es_izquierda=false;
@@ -195,7 +182,7 @@ bool verify_proof (const char *leaf_hash , MerkleProof *proof , const char *root
  bool resultado=false;
  char *actual = (char *)malloc(strlen(leaf_hash)+1);
  strcpy(actual, leaf_hash);
- for(int i=0; i<proof->length; i++){
+ for(size_t i=0; i<proof->length; i++){
         char *concatenado=malloc(36);
 //8 SI paso . is_left :
  if(proof->steps[i].is_left==1){
@@ -234,7 +221,7 @@ void merkle_tree_free(MerkleTree *tree){
     }
     liberar_nodos_recursivo(tree->root);
     if(tree->levels!=NULL){
-        for(size_t i=0; i<tree->height; i++){
+        for(size_t i=0; i<=tree->height; i++){
             free(tree->levels[i]);
         }
         free(tree->levels);

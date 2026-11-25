@@ -1,6 +1,7 @@
 #ifndef MERKLE_H_INCLUDED
 #define MERKLE_H_INCLUDED
 #include <stdbool.h>
+#include <stddef.h>
 typedef struct MerkleNode {
 char *hash; // Hash en formato hexadecimal ( string )
 struct MerkleNode *left;
