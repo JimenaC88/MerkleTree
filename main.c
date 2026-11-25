@@ -22,6 +22,7 @@ int main (int argc, char *argv[]) {
  char * leaf_hash_t2 = hash_data ("T2");
  bool invalid = verify_proof ( leaf_hash_t2 , proof , root );
  printf("Prueba invalida? ( esperado No ): %s\n", invalid ? "Si" : "No");
+ ejecutarTodasLasPruebas();
  free(leaf_hash);
  free(leaf_hash_t2);
  merkle_proof_free(proof);

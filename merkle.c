@@ -123,6 +123,9 @@ return tree;
 }
 
 char *merkle_tree_get_root(MerkleTree *tree){
+      if (tree == NULL || tree->root == NULL) {
+        return NULL;
+      }
       char *root_hash=(char *)malloc(strlen(tree->root->hash)+1);
       strcpy(root_hash, tree->root->hash);
       return root_hash;
