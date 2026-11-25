@@ -1,7 +1,7 @@
 CC      = gcc
 CFLAGS  = -std=c11 -Wall -Wextra -Werror -Wpedantic -g -O0
 TARGET  = Final_JimenaCarracedo
-OBJS    = main.o merkle.o
+OBJS    = main.o merkle.o tests.o
 
 all: $(TARGET)
 

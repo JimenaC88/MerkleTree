@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "merkle.h"
-int main ( void ) {
+#include "tests.h"
+int main (void) {
 
  char *data[] = {"T1", "T2", "T3", "T4"};
  MerkleTree *tree = merkle_tree_create(data , 4);
@@ -18,7 +20,7 @@ int main ( void ) {
  char * leaf_hash_t2 = hash_data ("T2");
  bool invalid = verify_proof ( leaf_hash_t2 , proof , root );
  printf("Prueba invalida? ( esperado No ): %s\n", invalid ? "Si" : "No");
-
+ ejecutarTodasLasPruebas();
  free(leaf_hash);
  free(leaf_hash_t2);
  merkle_proof_free(proof);
